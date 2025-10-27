@@ -81,6 +81,7 @@ import { DeleteAccountComponent } from "../auth/delete-account.component";
 import { DesktopAutotypeDefaultSettingPolicy } from "../autofill/services/desktop-autotype-policy.service";
 import { PremiumComponent } from "../billing/app/accounts/premium.component";
 import { MenuAccount, MenuUpdateRequest } from "../main/menu/menu.updater";
+import { BRAND_PROTOCOL_SCHEME } from "../branding";
 
 import { SettingsComponent } from "./accounts/settings.component";
 import { ExportDesktopComponent } from "./tools/export/export-desktop.component";
@@ -845,13 +846,13 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (urlString.indexOf("bitwarden://duo-callback") === 0) {
+    if (urlString.indexOf(`${BRAND_PROTOCOL_SCHEME}://duo-callback`) === 0) {
       message = "duoCallback";
     } else if (receivedState === null) {
       return;
     }
 
-    if (urlString.indexOf("bitwarden://import-callback-lp") === 0) {
+    if (urlString.indexOf(`${BRAND_PROTOCOL_SCHEME}://import-callback-lp`) === 0) {
       message = "importCallbackLastPass";
     } else if (urlString.indexOf(DESKTOP_SSO_CALLBACK) === 0) {
       message = "ssoCallback";

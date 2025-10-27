@@ -42,7 +42,7 @@ describe("OsBiometricsServiceMac", () => {
   });
 
   describe("deleteBiometricKey", () => {
-    const serviceName = "Bitwarden_biometric";
+    const serviceName = "PrincipalVaultManager_biometric";
     const keyName = "test-user-id_user_biometric";
 
     it("should delete biometric key successfully", async () => {

@@ -13,7 +13,7 @@ import { WindowMain } from "../../main/window.main";
 
 import { OsBiometricService } from "./os-biometrics.service";
 
-const SERVICE = "Bitwarden_biometric";
+const SERVICE = "PrincipalVaultManager_biometric";
 
 function getLookupKeyForUser(userId: UserId): string {
   return `${userId}_user_biometric`;

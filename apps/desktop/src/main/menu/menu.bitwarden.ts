@@ -6,6 +6,7 @@ import { MessagingService } from "@bitwarden/common/platform/abstractions/messag
 import { isMac } from "../../utils";
 import { UpdaterMain } from "../updater.main";
 
+import { BRAND_NAME } from "../../branding";
 import { FirstMenu } from "./menu.first";
 import { MenuAccount } from "./menu.updater";
 import { IMenubarMenu } from "./menubar";
@@ -13,7 +14,7 @@ import { IMenubarMenu } from "./menubar";
 // AKA: "FirstMenu" or "MacMenu" - the first menu that shows on all macOs apps
 export class BitwardenMenu extends FirstMenu implements IMenubarMenu {
   readonly id: string = "bitwarden";
-  readonly label: string = "Bitwarden";
+  readonly label: string = BRAND_NAME;
 
   get items(): MenuItemConstructorOptions[] {
     const items = [this.aboutBitwarden, this.checkForUpdates];

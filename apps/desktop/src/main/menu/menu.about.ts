@@ -2,6 +2,7 @@ import { BrowserWindow, clipboard, dialog, MenuItemConstructorOptions } from "el
 
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 
+import { BRAND_NAME } from "../../branding";
 import { VersionMain } from "../../platform/main/version.main";
 import { isMacAppStore, isSnapStore, isWindowsStore } from "../../utils";
 import { UpdaterMain } from "../updater.main";
@@ -71,8 +72,8 @@ export class AboutMenu implements IMenubarMenu {
           "\nArchitecture " +
           process.arch;
         const result = await dialog.showMessageBox(this._window, {
-          title: "Bitwarden",
-          message: "Bitwarden",
+          title: BRAND_NAME,
+          message: BRAND_NAME,
           detail: aboutInformation,
           type: "info",
           noLink: true,

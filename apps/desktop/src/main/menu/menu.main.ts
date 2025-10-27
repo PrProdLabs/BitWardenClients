@@ -5,6 +5,7 @@ import { EnvironmentService } from "@bitwarden/common/platform/abstractions/envi
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 
+import { LOCKED_WEB_VAULT_URL } from "../../branding";
 import { VersionMain } from "../../platform/main/version.main";
 import { DesktopSettingsService } from "../../platform/services/desktop-settings.service";
 import { UpdaterMain } from "../updater.main";
@@ -13,7 +14,7 @@ import { WindowMain } from "../window.main";
 import { MenuUpdateRequest } from "./menu.updater";
 import { Menubar } from "./menubar";
 
-const cloudWebVaultUrl = "https://vault.bitwarden.com";
+const cloudWebVaultUrl = LOCKED_WEB_VAULT_URL;
 
 export class MenuMain {
   constructor(

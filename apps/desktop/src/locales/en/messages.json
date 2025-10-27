@@ -739,7 +739,7 @@
     "message": "Create account"
   },
   "newToBitwarden": {
-    "message": "New to Bitwarden?"
+    "message": "New to Principal Productions - Vault Manager?"
   },
   "setAStrongPassword": {
     "message": "Set a strong password"
@@ -751,7 +751,7 @@
     "message": "Log in"
   },
   "logInToBitwarden": {
-    "message": "Log in to Bitwarden"
+    "message": "Log in to Principal Productions - Vault Manager"
   },
   "enterTheCodeSentToYourEmail": {
     "message": "Enter the code sent to your email"
@@ -1595,13 +1595,13 @@
     "description": "Bring all windows to front (foreground)"
   },
   "aboutBitwarden": {
-    "message": "About Bitwarden"
+    "message": "About Principal Productions - Vault Manager"
   },
   "services": {
     "message": "Services"
   },
   "hideBitwarden": {
-    "message": "Hide Bitwarden"
+    "message": "Hide Principal Productions - Vault Manager"
   },
   "hideOthers": {
     "message": "Hide others"
@@ -1610,7 +1610,7 @@
     "message": "Show all"
   },
   "quitBitwarden": {
-    "message": "Quit Bitwarden"
+    "message": "Quit Principal Productions - Vault Manager"
   },
   "valueCopied": {
     "message": "$VALUE$ copied",

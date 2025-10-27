@@ -9,9 +9,12 @@ import { ipcMain } from "electron";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { ipc, windows_registry } from "@bitwarden/desktop-napi";
 
+import { BRAND_NAME, BRAND_NATIVE_MESSAGING_HOST } from "../branding";
 import { isDev } from "../utils";
 
 import { WindowMain } from "./window.main";
+
+const NATIVE_MESSAGING_MANIFEST_NAME = `${BRAND_NATIVE_MESSAGING_HOST}.json`;
 
 export class NativeMessagingMain {
   private ipcServer: ipc.IpcServer | null;
@@ -130,8 +133,8 @@ export class NativeMessagingMain {
 
   async generateManifests() {
     const baseJson = {
-      name: "com.8bit.bitwarden",
-      description: "Bitwarden desktop <-> browser bridge",
+      name: BRAND_NATIVE_MESSAGING_HOST,
+      description: `${BRAND_NAME} desktop <-> browser bridge`,
       path: this.binaryPath(),
       type: "stdio",
     };
@@ -169,7 +172,7 @@ export class NativeMessagingMain {
         const nmhs = this.getDarwinNMHS();
         for (const [key, value] of Object.entries(nmhs)) {
           if (existsSync(value)) {
-            const p = path.join(value, "NativeMessagingHosts", "com.8bit.bitwarden.json");
+            const p = path.join(value, "NativeMessagingHosts", NATIVE_MESSAGING_MANIFEST_NAME);
 
             let manifest: any = chromeJson;
             if (key === "Firefox" || key === "Zen") {
@@ -187,13 +190,10 @@ export class NativeMessagingMain {
         for (const [key, value] of Object.entries(this.getLinuxNMHS())) {
           if (existsSync(value)) {
             if (key === "Firefox") {
-              await this.writeManifest(
-                path.join(value, "native-messaging-hosts", "com.8bit.bitwarden.json"),
-                firefoxJson,
-              );
+              await this.writeManifest(path.join(value, "native-messaging-hosts", NATIVE_MESSAGING_MANIFEST_NAME), firefoxJson);
             } else {
               await this.writeManifest(
-                path.join(value, "NativeMessagingHosts", "com.8bit.bitwarden.json"),
+                path.join(value, "NativeMessagingHosts", NATIVE_MESSAGING_MANIFEST_NAME),
                 chromeJson,
               );
             }
@@ -210,8 +210,8 @@ export class NativeMessagingMain {
 
   async generateDdgManifests() {
     const manifest = {
-      name: "com.8bit.bitwarden",
-      description: "Bitwarden desktop <-> DuckDuckGo bridge",
+      name: BRAND_NATIVE_MESSAGING_HOST,
+      description: `${BRAND_NAME} desktop <-> DuckDuckGo bridge`,
       path: this.binaryPath(),
       type: "stdio",
     };
@@ -223,7 +223,7 @@ export class NativeMessagingMain {
     switch (process.platform) {
       case "darwin": {
         /* eslint-disable-next-line no-useless-escape */
-        const path = `${this.homedir()}/Library/Containers/com.duckduckgo.macos.browser/Data/Library/Application\ Support/NativeMessagingHosts/com.8bit.bitwarden.json`;
+        const path = `${this.homedir()}/Library/Containers/com.duckduckgo.macos.browser/Data/Library/Application\ Support/NativeMessagingHosts/${NATIVE_MESSAGING_MANIFEST_NAME}`;
         await this.writeManifest(path, manifest);
         break;
       }
@@ -248,7 +248,7 @@ export class NativeMessagingMain {
         const nmhs = this.getDarwinNMHS();
         for (const [, value] of Object.entries(nmhs)) {
           await this.removeIfExists(
-            path.join(value, "NativeMessagingHosts", "com.8bit.bitwarden.json"),
+            path.join(value, "NativeMessagingHosts", NATIVE_MESSAGING_MANIFEST_NAME),
           );
         }
         break;
@@ -257,11 +257,11 @@ export class NativeMessagingMain {
         for (const [key, value] of Object.entries(this.getLinuxNMHS())) {
           if (key === "Firefox") {
             await this.removeIfExists(
-              path.join(value, "native-messaging-hosts", "com.8bit.bitwarden.json"),
+              path.join(value, "native-messaging-hosts", NATIVE_MESSAGING_MANIFEST_NAME),
             );
           } else {
             await this.removeIfExists(
-              path.join(value, "NativeMessagingHosts", "com.8bit.bitwarden.json"),
+              path.join(value, "NativeMessagingHosts", NATIVE_MESSAGING_MANIFEST_NAME),
             );
           }
         }
@@ -277,7 +277,7 @@ export class NativeMessagingMain {
     switch (process.platform) {
       case "darwin": {
         /* eslint-disable-next-line no-useless-escape */
-        const path = `${this.homedir()}/Library/Containers/com.duckduckgo.macos.browser/Data/Library/Application\ Support/NativeMessagingHosts/com.8bit.bitwarden.json`;
+        const path = `${this.homedir()}/Library/Containers/com.duckduckgo.macos.browser/Data/Library/Application\ Support/NativeMessagingHosts/${NATIVE_MESSAGING_MANIFEST_NAME}`;
         await this.removeIfExists(path);
         break;
       }
@@ -288,13 +288,13 @@ export class NativeMessagingMain {
 
   private getWindowsNMHS() {
     return {
-      Firefox: ["HKCU", "SOFTWARE\\Mozilla\\NativeMessagingHosts\\com.8bit.bitwarden"],
-      Chrome: ["HKCU", "SOFTWARE\\Google\\Chrome\\NativeMessagingHosts\\com.8bit.bitwarden"],
-      Chromium: ["HKCU", "SOFTWARE\\Chromium\\NativeMessagingHosts\\com.8bit.bitwarden"],
+      Firefox: ["HKCU", `SOFTWARE\\Mozilla\\NativeMessagingHosts\\${BRAND_NATIVE_MESSAGING_HOST}`],
+      Chrome: ["HKCU", `SOFTWARE\\Google\\Chrome\\NativeMessagingHosts\\${BRAND_NATIVE_MESSAGING_HOST}`],
+      Chromium: ["HKCU", `SOFTWARE\\Chromium\\NativeMessagingHosts\\${BRAND_NATIVE_MESSAGING_HOST}`],
       // Edge uses the same registry key as Chrome as a fallback, but it's has its own separate key as well.
       "Microsoft Edge": [
         "HKCU",
-        "SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts\\com.8bit.bitwarden",
+        `SOFTWARE\\Microsoft\\Edge\\NativeMessagingHosts\\${BRAND_NATIVE_MESSAGING_HOST}`,
       ],
     };
   }

@@ -6,6 +6,8 @@ import { app, ipcMain } from "electron";
 import { I18nService as BaseI18nService } from "@bitwarden/common/platform/services/i18n.service";
 import { GlobalStateProvider } from "@bitwarden/common/platform/state";
 
+import { applyBranding } from "../../branding";
+
 export class I18nMainService extends BaseI18nService {
   constructor(
     systemLanguage: string,
@@ -97,6 +99,11 @@ export class I18nMainService extends BaseI18nService {
     // Set system language to electron language
     this.systemLanguage = app.getLocale();
     await super.init();
+  }
+
+  override translate(id: string, p1?: string | number, p2?: string | number, p3?: string | number) {
+    const baseTranslation = super.translate(id, p1, p2, p3);
+    return applyBranding(baseTranslation);
   }
 
   private readLanguageFile(formattedLocale: string): Promise<any> {

@@ -8,6 +8,7 @@ import { firstValueFrom } from "rxjs";
 
 import { autostart } from "@bitwarden/desktop-napi";
 
+import { BRAND_NAME } from "../branding";
 import { Main } from "../main";
 import { DesktopSettingsService } from "../platform/services/desktop-settings.service";
 import { isFlatpak, isLinux, isSnapStore } from "../utils";
@@ -129,13 +130,13 @@ export class MessagingMain {
   private addOpenAtLogin() {
     if (process.platform === "linux") {
       if (isFlatpak()) {
-        autostart.setAutostart(true, []).catch((e) => {});
+        autostart.setAutostart(true, []).catch(() => {});
       } else {
         const data = `[Desktop Entry]
   Type=Application
   Version=${app.getVersion()}
-  Name=Bitwarden
-  Comment=Bitwarden startup script
+  Name=${BRAND_NAME}
+  Comment=${BRAND_NAME} startup script
   Exec=${app.getPath("exe")}
   StartupNotify=false
   Terminal=false`;
@@ -154,7 +155,7 @@ export class MessagingMain {
   private removeOpenAtLogin() {
     if (process.platform === "linux") {
       if (isFlatpak()) {
-        autostart.setAutostart(false, []).catch((e) => {});
+        autostart.setAutostart(false, []).catch(() => {});
       } else {
         if (fs.existsSync(this.linuxStartupFile())) {
           fs.unlinkSync(this.linuxStartupFile());
@@ -166,7 +167,7 @@ export class MessagingMain {
   }
 
   private linuxStartupFile(): string {
-    return path.join(app.getPath("home"), ".config", "autostart", "bitwarden.desktop");
+    return path.join(app.getPath("home"), ".config", "autostart", "principal-vault-manager.desktop");
   }
 
   private setFocus() {

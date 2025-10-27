@@ -54,7 +54,7 @@ describe("OsBiometricsServiceWindows", function () {
 
   const key = new SymmetricCryptoKey(new Uint8Array(64));
   const userId = "test-user-id" as UserId;
-  const serviceKey = "Bitwarden_biometric";
+  const serviceKey = "PrincipalVaultManager_biometric";
   const storageKey = `${userId}_user_biometric`;
 
   beforeEach(() => {
@@ -242,7 +242,7 @@ describe("OsBiometricsServiceWindows", function () {
   });
 
   describe("deleteBiometricKey", () => {
-    const serviceName = "Bitwarden_biometric";
+    const serviceName = "PrincipalVaultManager_biometric";
     const keyName = "test-user-id_user_biometric";
 
     it("should delete biometric key successfully", async () => {

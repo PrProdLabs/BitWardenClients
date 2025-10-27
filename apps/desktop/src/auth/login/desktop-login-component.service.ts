@@ -49,7 +49,7 @@ export class DesktopLoginComponentService
     state: string,
     codeChallenge: string,
   ): Promise<void> {
-    // For platforms that cannot support a protocol-based (e.g. bitwarden://) callback, we use a localhost callback
+    // For platforms that cannot support a protocol-based (e.g. principalvaultmanager://) callback, we use a localhost callback
     // Otherwise, we launch the SSO component in a browser window and wait for the callback
     if (ipc.platform.isAppImage || ipc.platform.isDev) {
       await this.initiateSsoThroughLocalhostCallback(email, state, codeChallenge);

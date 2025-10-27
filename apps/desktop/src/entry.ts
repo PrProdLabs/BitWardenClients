@@ -41,5 +41,5 @@ if (
   const Main = require("./main").Main;
 
   const main = new Main();
-  main.bootstrap();
+  void main.bootstrap();
 }

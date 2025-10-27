@@ -1,11 +1,11 @@
 {
   "extraMetadata": {
-    "name": "bitwarden"
+    "name": "principal-vault-manager"
   },
-  "productName": "Bitwarden",
-  "appId": "com.bitwarden.desktop",
+  "productName": "Principal Productions - Vault Manager",
+  "appId": "fr.principalprod.vaultmanager",
   "buildDependenciesFromSource": true,
-  "copyright": "Copyright © 2015-2025 Bitwarden Inc.",
+  "copyright": "Copyright © 2025 Principal Productions",
   "directories": {
     "buildResources": "resources",
     "output": "dist",
@@ -24,7 +24,7 @@
   "generateUpdatesFilesForAllChannels": true,
   "publish": {
     "provider": "generic",
-    "url": "https://artifacts.bitwarden.com/desktop"
+    "url": "https://vault.principalprod.fr/downloads/desktop"
   },
   "mac": {
     "electronUpdaterCompatibility": ">=0.0.1",
@@ -67,7 +67,7 @@
       ],
       "CFBundleDevelopmentRegion": "en"
     },
-    "provisioningProfile": "bitwarden_desktop_developer_id.provisionprofile",
+    "provisioningProfile": "principal_vault_manager_desktop_developer_id.provisionprofile",
     "singleArchFiles": "node_modules/@bitwarden/desktop-napi/desktop_napi.darwin-*.node",
     "extraFiles": [
       {
@@ -115,7 +115,7 @@
     "target": ["deb", "freebsd", "rpm", "AppImage", "snap"],
     "desktop": {
       "entry": {
-        "Name": "Bitwarden",
+        "Name": "Principal Productions - Vault Manager",
         "Type": "Application",
         "GenericName": "Password Manager"
       }
@@ -151,7 +151,7 @@
       "LSMinimumSystemVersion": "12",
       "ElectronTeamID": "LTZ2PFU5D6"
     },
-    "provisioningProfile": "bitwarden_desktop_appstore.provisionprofile"
+    "provisioningProfile": "principal_vault_manager_desktop_appstore.provisionprofile"
   },
   "nsisWeb": {
     "oneClick": false,
@@ -168,10 +168,10 @@
   "appx": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
     "backgroundColor": "#175DDC",
-    "applicationId": "bitwardendesktop",
-    "identityName": "8bitSolutionsLLC.bitwardendesktop",
+    "applicationId": "principalvaultmanagerdesktop",
+    "identityName": "PrincipalProd.PrincipalVaultManagerDesktop",
     "publisher": "CN=14D52771-DE3C-4886-B8BF-825BA7690418",
-    "publisherDisplayName": "Bitwarden Inc",
+    "publisherDisplayName": "Principal Productions",
     "languages": [
       "en-US",
       "af",
@@ -252,8 +252,8 @@
     "artifactName": "${productName}-${version}-${arch}.${ext}"
   },
   "snap": {
-    "summary": "Bitwarden is a secure and free password manager for all of your devices.",
-    "description": "Password Manager\n**Installation**\nBitwarden requires access to the `password-manager-service`. Please enable it through permissions or by running `sudo snap connect bitwarden:password-manager-service` after installation. See https://btwrdn.com/install-snap for details.",
+    "summary": "Principal Productions - Vault Manager keeps your passwords secure across devices.",
+    "description": "Password Manager\n**Installation**\nPrincipal Productions - Vault Manager requires access to the `password-manager-service`. Please enable it through permissions or by running `sudo snap connect principal-vault-manager:password-manager-service` after installation.",
     "autoStart": true,
     "base": "core22",
     "confinement": "strict",
@@ -263,7 +263,7 @@
       "password-manager-service",
       {
         "polkit": {
-          "action-prefix": "com.bitwarden.Bitwarden"
+          "action-prefix": "fr.principalprod.VaultManager"
         }
       },
       "u2f-devices"
@@ -273,8 +273,8 @@
   },
   "protocols": [
     {
-      "name": "Bitwarden",
-      "schemes": ["bitwarden"]
+      "name": "Principal Productions - Vault Manager",
+      "schemes": ["principalvaultmanager"]
     }
   ]
 }

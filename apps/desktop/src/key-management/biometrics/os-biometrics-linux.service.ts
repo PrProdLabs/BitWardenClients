@@ -33,7 +33,7 @@ const polkitPolicy = `<?xml version="1.0" encoding="UTF-8"?>
 const policyFileName = "com.bitwarden.Bitwarden.policy";
 const policyPath = "/usr/share/polkit-1/actions/";
 
-const SERVICE = "Bitwarden_biometric";
+const SERVICE = "PrincipalVaultManager_biometric";
 
 function getLookupKeyForUser(userId: UserId): string {
   return `${userId}_user_biometric`;

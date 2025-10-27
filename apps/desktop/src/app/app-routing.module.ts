@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { AuthenticationTimeoutComponent } from "@bitwarden/angular/auth/components/authentication-timeout.component";
-import { EnvironmentSelectorComponent } from "@bitwarden/angular/auth/environment-selector/environment-selector.component";
 import {
   authGuard,
   lockGuard,
@@ -171,11 +170,6 @@ const routes: Routes = [
         children: [
           { path: "", component: LoginComponent },
           { path: "", component: LoginSecondaryContentComponent, outlet: "secondary" },
-          {
-            path: "",
-            component: EnvironmentSelectorComponent,
-            outlet: "environment-selector",
-          },
         ],
       },
       {
@@ -197,14 +191,7 @@ const routes: Routes = [
             key: "singleSignOnEnterOrgIdentifierText",
           },
         } satisfies AnonLayoutWrapperData,
-        children: [
-          { path: "", component: SsoComponent },
-          {
-            path: "",
-            component: EnvironmentSelectorComponent,
-            outlet: "environment-selector",
-          },
-        ],
+        children: [{ path: "", component: SsoComponent }],
       },
       {
         path: "login-with-device",
@@ -217,14 +204,7 @@ const routes: Routes = [
             key: "aNotificationWasSentToYourDevice",
           },
         } satisfies AnonLayoutWrapperData,
-        children: [
-          { path: "", component: LoginViaAuthRequestComponent },
-          {
-            path: "",
-            component: EnvironmentSelectorComponent,
-            outlet: "environment-selector",
-          },
-        ],
+        children: [{ path: "", component: LoginViaAuthRequestComponent }],
       },
       {
         path: "admin-approval-requested",
@@ -251,14 +231,7 @@ const routes: Routes = [
           },
           pageIcon: UserLockIcon,
         } satisfies AnonLayoutWrapperData,
-        children: [
-          { path: "", component: PasswordHintComponent },
-          {
-            path: "",
-            component: EnvironmentSelectorComponent,
-            outlet: "environment-selector",
-          },
-        ],
+        children: [{ path: "", component: PasswordHintComponent }],
       },
       {
         path: "lock",

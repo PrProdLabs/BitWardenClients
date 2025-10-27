@@ -12,12 +12,10 @@ import { AccountServiceImplementation } from "@bitwarden/common/auth/services/ac
 import { DefaultActiveUserAccessor } from "@bitwarden/common/auth/services/default-active-user.accessor";
 import { ClientType } from "@bitwarden/common/enums";
 import { EncryptServiceImplementation } from "@bitwarden/common/key-management/crypto/services/encrypt.service.implementation";
-import { RegionConfig } from "@bitwarden/common/platform/abstractions/environment.service";
 import { SdkLoadService } from "@bitwarden/common/platform/abstractions/sdk/sdk-load.service";
 import { Message, MessageSender } from "@bitwarden/common/platform/messaging";
 // eslint-disable-next-line no-restricted-imports -- For dependency creation
 import { SubjectMessageSender } from "@bitwarden/common/platform/messaging/internal";
-import { DefaultEnvironmentService } from "@bitwarden/common/platform/services/default-environment.service";
 import { MemoryStorageService } from "@bitwarden/common/platform/services/memory-storage.service";
 import { MigrationBuilderService } from "@bitwarden/common/platform/services/migration-builder.service";
 import { MigrationRunner } from "@bitwarden/common/platform/services/migration-runner";
@@ -55,6 +53,8 @@ import { DesktopSettingsService } from "./platform/services/desktop-settings.ser
 import { ElectronLogMainService } from "./platform/services/electron-log.main.service";
 import { ElectronStorageService } from "./platform/services/electron-storage.service";
 import { EphemeralValueStorageService } from "./platform/services/ephemeral-value-storage.main.service";
+import { BRAND_NAME, BRAND_PROTOCOL_SCHEME } from "./branding";
+import { PrincipalEnvironmentService } from "./platform/services/principal-environment.service";
 import { I18nMainService } from "./platform/services/i18n.main.service";
 import { SSOLocalhostCallbackService } from "./platform/services/sso-localhost-callback.service";
 import { ElectronMainMessagingService } from "./services/electron-main-messaging.service";
@@ -68,7 +68,7 @@ export class Main {
   memoryStorageService: MemoryStorageService;
   memoryStorageForStateProviders: SerializedMemoryStorageService;
   messagingService: MessageSender;
-  environmentService: DefaultEnvironmentService;
+  environmentService: PrincipalEnvironmentService;
   desktopCredentialStorageListener: DesktopCredentialStorageListener;
   mainBiometricsIpcListener: MainBiometricsIPCListener;
   desktopSettingsService: DesktopSettingsService;
@@ -98,7 +98,7 @@ export class Main {
     if (process.env.BITWARDEN_APPDATA_DIR != null) {
       appDataPath = process.env.BITWARDEN_APPDATA_DIR;
     } else if (process.platform === "win32" && process.env.PORTABLE_EXECUTABLE_DIR != null) {
-      appDataPath = path.join(process.env.PORTABLE_EXECUTABLE_DIR, "bitwarden-appdata");
+      appDataPath = path.join(process.env.PORTABLE_EXECUTABLE_DIR, "principal-vault-manager-appdata");
     } else if (process.platform === "linux" && process.env.SNAP_USER_DATA != null) {
       appDataPath = path.join(process.env.SNAP_USER_DATA, "appdata");
     }
@@ -180,11 +180,7 @@ export class Main {
       new DefaultDerivedStateProvider(),
     );
 
-    this.environmentService = new DefaultEnvironmentService(
-      stateProvider,
-      accountService,
-      process.env.ADDITIONAL_REGIONS as unknown as RegionConfig[],
-    );
+    this.environmentService = new PrincipalEnvironmentService(stateProvider, accountService);
 
     this.migrationRunner = new MigrationRunner(
       this.storageService,
@@ -325,7 +321,10 @@ export class Main {
     });
   }
 
-  bootstrap() {
+  async bootstrap() {
+    app.setName(BRAND_NAME);
+    await this.environmentService.enforceLockedEnvironment();
+
     this.desktopCredentialStorageListener.init();
     this.mainBiometricsIpcListener.init();
     // Run migrations first, then other things
@@ -340,7 +339,7 @@ export class Main {
         // FIXME: Verify that this floating promise is intentional. If it is, add an explanatory comment and ensure there is proper error handling.
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.menuMain.init();
-        await this.trayMain.init("Bitwarden", [
+        await this.trayMain.init(BRAND_NAME, [
           {
             label: this.i18nService.t("lockVault"),
             enabled: false,
@@ -379,15 +378,15 @@ export class Main {
             );
         }
 
-        app.removeAsDefaultProtocolClient("bitwarden");
+        app.removeAsDefaultProtocolClient(BRAND_PROTOCOL_SCHEME);
         if (process.env.NODE_ENV === "development" && process.platform === "win32") {
           // Fix development build on Windows requirering a different protocol client
-          app.setAsDefaultProtocolClient("bitwarden", process.execPath, [
+          app.setAsDefaultProtocolClient(BRAND_PROTOCOL_SCHEME, process.execPath, [
             process.argv[1],
             path.resolve(process.argv[2]),
           ]);
         } else {
-          app.setAsDefaultProtocolClient("bitwarden");
+          app.setAsDefaultProtocolClient(BRAND_PROTOCOL_SCHEME);
         }
 
         // Process protocol for macOS
@@ -414,7 +413,7 @@ export class Main {
 
   private processDeepLink(argv: string[]): void {
     argv
-      .filter((s) => s.indexOf("bitwarden://") === 0)
+      .filter((s) => s.indexOf(`${BRAND_PROTOCOL_SCHEME}://`) === 0)
       .forEach((s) => {
         this.messagingService.send("deepLink", { urlString: s });
       });
