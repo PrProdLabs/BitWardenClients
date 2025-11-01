@@ -5,7 +5,7 @@ require 'json'
 require 'base64'
 
 APP_CONFIG = {
-  app_identifier: "com.bitwarden.desktop",
+  app_identifier: "fr.principalprod.vaultmanager",
   release_notes_path: "fastlane/release_notes",
   locales: ["ca", "zh-Hans", "zh-Hant", "da", "nl-NL", "en-US", "fi", "fr-FR", "de-DE", "id", "it", "ja", "ko", "no", "pt-PT", "pt-BR", "ru", "es-ES", "es-MX", "sv", "tr", "vi", "en-GB", "th"]
 }
@@ -68,9 +68,9 @@ platform :mac do
     is_dry_run = options[:dry_run] == "true" || options[:dry_run] == true
     
     if is_dry_run
-      UI.header("🧪 DRY RUN: Testing Bitwarden Desktop App Store submission")
+      UI.header("🧪 DRY RUN: Testing Principal Vault Manager App Store submission")
     else
-      UI.header("🚀 Publishing Bitwarden Desktop to Mac App Store")
+      UI.header("🚀 Publishing Principal Vault Manager to Mac App Store")
     end
     
     # Show configuration info

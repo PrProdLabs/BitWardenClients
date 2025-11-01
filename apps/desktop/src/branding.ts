@@ -27,6 +27,10 @@ const BRAND_REPLACEMENTS: Array<[RegExp, () => string]> = [
   [/bitwarden\.com/gi, () => BRAND_DOMAIN],
   [/send\.bitwarden\.com\/#/gi, () => `${LOCKED_WEB_VAULT_URL}/#/send/`],
   [/send\.bitwarden\.com/gi, () => `${LOCKED_WEB_VAULT_URL}/send`],
+  [/Bitwarden Send/gi, () => `${BRAND_NAME} Send`],
+  [/Bitwarden Authenticator/gi, () => `${BRAND_NAME} Authenticator`],
+  [/Bitwarden CLI/gi, () => `${BRAND_NAME} CLI`],
+  [/Bitwarden Web Vault/gi, () => `${BRAND_NAME} Web Vault`],
   [/Bitwarden/g, () => BRAND_NAME],
   [/bitwarden/gi, () => BRAND_NAME],
 ];

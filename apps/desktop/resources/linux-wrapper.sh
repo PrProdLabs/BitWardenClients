@@ -25,4 +25,4 @@ if [ "$USE_X11" = "true" ]; then
   PARAMS=""
 fi
 
-$APP_PATH/bitwarden-app $PARAMS "$@"
+$APP_PATH/principal-vault-manager-app $PARAMS "$@"

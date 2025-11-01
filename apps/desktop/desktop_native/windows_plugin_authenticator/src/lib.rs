@@ -12,12 +12,12 @@ use windows_core::*;
 mod pluginauthenticator;
 mod webauthn;
 
-const AUTHENTICATOR_NAME: &str = "Bitwarden Desktop Authenticator";
+const AUTHENTICATOR_NAME: &str = "Principal Vault Manager Authenticator";
 //const AAGUID: &str = "d548826e-79b4-db40-a3d8-11116f7e8349";
 const CLSID: &str = "0f7dc5d9-69ce-4652-8572-6877fd695062";
-const RPID: &str = "bitwarden.com";
+const RPID: &str = "vault.principalprod.fr";
 
-/// Handles initialization and registration for the Bitwarden desktop app as a
+/// Handles initialization and registration for the Principal Vault Manager desktop app as a
 /// plugin authenticator with Windows.
 /// For now, also adds the authenticator
 pub fn register() -> std::result::Result<(), String> {
@@ -63,7 +63,7 @@ fn initialize_com_library() -> std::result::Result<(), String> {
     }
 }
 
-/// Registers the Bitwarden Plugin Authenticator COM library with Windows.
+/// Registers the Principal Vault Manager Plugin Authenticator COM library with Windows.
 fn register_com_library() -> std::result::Result<(), String> {
     static FACTORY: windows_core::StaticComObject<pluginauthenticator::Factory> =
         pluginauthenticator::Factory().into_static();
@@ -85,7 +85,7 @@ fn register_com_library() -> std::result::Result<(), String> {
     }
 }
 
-/// Adds Bitwarden as a plugin authenticator.
+/// Adds Principal Vault Manager as a plugin authenticator.
 // FIXME: Remove unwraps! They panic and terminate the whole application.
 #[allow(clippy::unwrap_used)]
 fn add_authenticator() -> std::result::Result<(), String> {

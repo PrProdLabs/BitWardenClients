@@ -1,11 +1,11 @@
 {
   "extraMetadata": {
-    "name": "bitwarden-beta"
+    "name": "principal-vault-manager-beta"
   },
-  "productName": "Bitwarden Beta",
-  "appId": "com.bitwarden.desktop.beta",
+  "productName": "Principal Vault Manager Beta",
+  "appId": "fr.principalprod.vaultmanager.beta",
   "buildDependenciesFromSource": true,
-  "copyright": "Copyright © 2015-2025 Bitwarden Inc.",
+  "copyright": "Copyright (c) 2025 Principal Productions",
   "directories": {
     "buildResources": "resources",
     "output": "dist",
@@ -24,7 +24,7 @@
   "generateUpdatesFilesForAllChannels": true,
   "publish": {
     "provider": "generic",
-    "url": "https://artifacts.bitwarden.com/desktop"
+    "url": "https://vault.principalprod.fr/downloads/desktop"
   },
   "win": {
     "electronUpdaterCompatibility": ">=0.0.1",
@@ -43,21 +43,21 @@
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": false,
-    "artifactName": "Bitwarden-Beta-Installer-${version}.${ext}",
+    "artifactName": "Principal-Vault-Manager-Beta-Installer-${version}.${ext}",
     "uninstallDisplayName": "${productName}",
     "deleteAppDataOnUninstall": true,
     "include": "installer.nsh"
   },
   "portable": {
-    "artifactName": "Bitwarden-Beta-Portable-${version}.${ext}"
+    "artifactName": "Principal-Vault-Manager-Beta-Portable-${version}.${ext}"
   },
   "appx": {
-    "artifactName": "Bitwarden-Beta-${version}-${arch}.${ext}",
+    "artifactName": "Principal-Vault-Manager-Beta-${version}-${arch}.${ext}",
     "backgroundColor": "#175DDC",
-    "applicationId": "BitwardenBeta",
-    "identityName": "8bitSolutionsLLC.BitwardenBeta",
+    "applicationId": "PrincipalVaultManagerBeta",
+    "identityName": "PrincipalProd.PrincipalVaultManagerBeta",
     "publisher": "CN=14D52771-DE3C-4886-B8BF-825BA7690418",
-    "publisherDisplayName": "Bitwarden Inc",
+    "publisherDisplayName": "Principal Productions",
     "languages": [
       "en-US",
       "af",
@@ -125,8 +125,8 @@
   },
   "protocols": [
     {
-      "name": "Bitwarden",
-      "schemes": ["bitwarden"]
+      "name": "Principal Productions - Vault Manager",
+      "schemes": ["principalvaultmanager"]
     }
   ]
 }

@@ -26,7 +26,7 @@ impl super::BiometricTrait for Biometric {
         let result = proxy
             .check_authorization(
                 &subject,
-                "com.bitwarden.Bitwarden.unlock",
+                "fr.principalprod.VaultManager.unlock",
                 &details,
                 CheckAuthorizationFlags::AllowUserInteraction.into(),
                 "",
@@ -47,7 +47,7 @@ impl super::BiometricTrait for Biometric {
         let proxy = AuthorityProxy::new(&connection).await?;
         let res = proxy.enumerate_actions("en").await?;
         for action in res {
-            if action.action_id == "com.bitwarden.Bitwarden.unlock" {
+            if action.action_id == "fr.principalprod.VaultManager.unlock" {
                 return Ok(true);
             }
         }

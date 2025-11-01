@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Principal Vault Manager
+Exec=principal-vault-manager %u
+Terminal=false
+Type=Application
+Icon=fr.principalprod.vaultmanager
+StartupWMClass=PrincipalVaultManager
+GenericName=Password Manager
+Comment=A secure and free password manager for all of your devices.
+MimeType=x-scheme-handler/principalvaultmanager;
+Categories=System;Security;

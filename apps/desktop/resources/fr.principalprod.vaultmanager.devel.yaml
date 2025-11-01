@@ -1,10 +1,10 @@
-app-id: com.bitwarden.desktop
+app-id: fr.principalprod.vaultmanager
 runtime: org.freedesktop.Platform
 runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: "24.08"
-command: bitwarden.sh
+command: principal-vault-manager.sh
 finish-args:
   - --share=ipc
   - --share=network
@@ -27,13 +27,13 @@ finish-args:
   - --filesystem=xdg-download
   - --device=all
 modules:
-  - name: bitwarden-desktop
+  - name: principal-vault-manager-desktop
     buildsystem: simple
     build-commands:
       - mkdir -p /app/bin
-      - mkdir -p /app/bin/Bitwarden/
+      - mkdir -p /app/bin/principal-vault-manager/
       - cp -r ./* /app/bin/
-      - install bitwarden.sh /app/bin/bitwarden.sh
+      - install principal-vault-manager.sh /app/bin/principal-vault-manager.sh
     sources:
       - type: dir
         only-arches: [x86_64]
@@ -42,10 +42,10 @@ modules:
         only-arches: [aarch64]
         path: ../dist/linux-arm64-unpacked
       - type: script
-        dest-filename: bitwarden.sh
+        dest-filename: principal-vault-manager.sh
         commands:
           - ulimit -c 0
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - export ZYPAK_LD_PRELOAD="/app/bin/libprocess_isolation.so"
           - export PROCESS_ISOLATION_LD_PRELOAD="/app/bin/libprocess_isolation.so"
-          - exec zypak-wrapper /app/bin/bitwarden-app "$@"
+          - exec zypak-wrapper /app/bin/principal-vault-manager-app "$@"

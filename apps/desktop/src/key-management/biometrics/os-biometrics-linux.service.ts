@@ -20,9 +20,9 @@ const polkitPolicy = `<?xml version="1.0" encoding="UTF-8"?>
  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
 
 <policyconfig>
-    <action id="com.bitwarden.Bitwarden.unlock">
-      <description>Unlock Bitwarden</description>
-      <message>Authenticate to unlock Bitwarden</message>
+    <action id="fr.principalprod.VaultManager.unlock">
+      <description>Unlock Principal Vault Manager</description>
+      <message>Authenticate to unlock Principal Vault Manager</message>
       <defaults>
         <allow_any>no</allow_any>
         <allow_inactive>no</allow_inactive>
@@ -30,7 +30,7 @@ const polkitPolicy = `<?xml version="1.0" encoding="UTF-8"?>
       </defaults>
     </action>
 </policyconfig>`;
-const policyFileName = "com.bitwarden.Bitwarden.policy";
+const policyFileName = "fr.principalprod.VaultManager.policy";
 const policyPath = "/usr/share/polkit-1/actions/";
 
 const SERVICE = "PrincipalVaultManager_biometric";

@@ -21,9 +21,9 @@ async function run(context) {
     console.log("Creating memory-protection wrapper script");
     const appOutDir = context.appOutDir;
     const oldBin = path.join(appOutDir, context.packager.executableName);
-    const newBin = path.join(appOutDir, "bitwarden-app");
+    const newBin = path.join(appOutDir, "principal-vault-manager-app");
     fse.moveSync(oldBin, newBin);
-    console.log("Moved binary to bitwarden-app");
+    console.log("Moved binary to principal-vault-manager-app");
 
     const wrapperScript = path.join(__dirname, "../resources/linux-wrapper.sh");
     const wrapperBin = path.join(appOutDir, context.packager.executableName);
@@ -38,14 +38,14 @@ async function run(context) {
 
     let id;
 
-    // Only use the Bitwarden Identities on CI
+    // Only use the Principal Productions identities on CI
     if (process.env.GITHUB_ACTIONS === "true") {
       if (is_mas) {
         id = is_mas_dev
           ? "588E3F1724AE018EBA762E42279DAE85B313E3ED"
-          : "3rd Party Mac Developer Application: Bitwarden Inc";
+          : "3rd Party Mac Developer Application: Principal Productions";
       } else {
-        id = "Developer ID Application: 8bit Solutions LLC";
+        id = "Developer ID Application: Principal Productions";
       }
       // Locally, use the first valid code signing identity, unless CSC_NAME is set
     } else if (process.env.CSC_NAME) {
@@ -67,7 +67,7 @@ async function run(context) {
     const proxyPath = path.join(appPath, "Contents", "MacOS", "desktop_proxy");
     const inheritProxyPath = path.join(appPath, "Contents", "MacOS", "desktop_proxy.inherit");
 
-    const packageId = "com.bitwarden.desktop";
+    const packageId = "fr.principalprod.vaultmanager";
 
     if (is_mas) {
       const entitlementsName = "entitlements.desktop_proxy.plist";
